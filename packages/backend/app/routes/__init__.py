@@ -9,6 +9,9 @@ from .docs import bp as docs_bp
 from .dashboard import bp as dashboard_bp
 
 
+from .jobs import bp as jobs_bp
+
+
 def register_routes(app: Flask):
     app.register_blueprint(auth_bp, url_prefix="/auth")
     app.register_blueprint(expenses_bp, url_prefix="/expenses")
@@ -18,3 +21,4 @@ def register_routes(app: Flask):
     app.register_blueprint(categories_bp, url_prefix="/categories")
     app.register_blueprint(docs_bp, url_prefix="/docs")
     app.register_blueprint(dashboard_bp, url_prefix="/dashboard")
+    app.register_blueprint(jobs_bp, url_prefix="/jobs")
