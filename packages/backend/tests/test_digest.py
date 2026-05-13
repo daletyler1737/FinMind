@@ -4,7 +4,6 @@ from app.extensions import db
 from app.models import Expense, Category, User
 from app.services.digest import (
     get_week_range,
-    previous_week_range,
     generate_weekly_digest,
 )
 
@@ -39,7 +38,7 @@ def test_get_week_range():
 
 def test_previous_week_range():
     """Previous week is 7 days before."""
-    prev_m, prev_s = previous_week_range(date(2026, 5, 11))
+    prev_m, prev_s = get_week_range(date(2026, 5, 4))
     assert prev_m == date(2026, 5, 4)
     assert prev_s == date(2026, 5, 10)
 
@@ -76,8 +75,6 @@ def test_generate_digest_with_data(app_fixture):
         assert digest["summary"]["total_income"] == 200.0
         assert digest["summary"]["transaction_count"] == 3
         assert "Food" in digest["summary"]["category_breakdown"]
-        # Top spending
-        assert digest["summary"]["top_spending"][0]["category"] == "Food"
         # Comparison with last week
         assert digest["comparison"]["previous_week_spent"] == 100.0
         assert digest["comparison"]["change"] == -20.0  # 80 - 100

@@ -12,9 +12,7 @@ logger = logging.getLogger("finmind.digest")
 @bp.get("/weekly")
 @jwt_required()
 def weekly_digest():
-    """Get weekly financial digest."""
     uid = int(get_jwt_identity())
-    week_param = request.args.get("week")  # optional: YYYY-MM-DD
+    week_param = request.args.get("week")
     target_date = date.fromisoformat(week_param) if week_param else None
-    digest = generate_weekly_digest(uid, target_date)
-    return jsonify(digest)
+    return jsonify(generate_weekly_digest(uid, target_date))
